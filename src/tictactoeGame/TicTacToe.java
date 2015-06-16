@@ -13,11 +13,9 @@ public class TicTacToe {
 
     private static final int SECOND_PLAYER = 2;
 
+    private static boolean FIRST_PLAYERS_MOVE = true;
+
     private String[][] mainField = new String[FIELD_SIZE][FIELD_SIZE];
-
-    private int[] firstPlayersMove = new int[MOVE_DATA_SIZE];
-
-    private int[] secondPlayersMove = new int[MOVE_DATA_SIZE];
 
     private int[] moveOfAI = new int[MOVE_DATA_SIZE];
 
@@ -29,12 +27,22 @@ public class TicTacToe {
         }
     }
 
-    public void firstPlayerMoved(int[] moveData) {
-        this.markTheCell(moveData, FIRST_PLAYER);
+    public void playerMoved(int[] moveData) {
+        if (FIRST_PLAYERS_MOVE) {
+            this.markTheCell(moveData, FIRST_PLAYER);
+            FIRST_PLAYERS_MOVE = false;
+        } else {
+            this.markTheCell(moveData, SECOND_PLAYER);
+            FIRST_PLAYERS_MOVE = true;
+        }
     }
 
-    public void secondPlayerMoved(int[] moveData) {
-        this.markTheCell(moveData, SECOND_PLAYER);
+    public void moveOf() {
+        if (FIRST_PLAYERS_MOVE) {
+            System.out.println("First player: ");
+        } else {
+            System.out.println("Second player: ");
+        }
     }
 
     private void markTheCell(int[] moveData, int player) {
@@ -47,8 +55,12 @@ public class TicTacToe {
 
     public boolean doesAnyoneWon() {
         if (checkIfXsOrOsWon("X")) {
+            System.out.println("FIRST PLAYER WON!!!");
+            this.displayField();
             return true;
         } else if (checkIfXsOrOsWon("O")) {
+            System.out.println("SECOND PLAYER WON!!!");
+            this.displayField();
             return true;
         } else {
             return false;
@@ -60,7 +72,7 @@ public class TicTacToe {
             if (this.mainField[i][0] == xOrO && this.mainField[i][1] == xOrO && this.mainField[i][2] == xOrO) {
                 return true;
             } else if (this.mainField[0][i] == xOrO && this.mainField[1][i] == xOrO && this.mainField[2][i] == xOrO) {
-
+                return true;
             }
         }
         if (this.mainField[0][0] == xOrO && this.mainField[1][1] == xOrO && this.mainField[2][2] == xOrO) {

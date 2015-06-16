@@ -1,40 +1,33 @@
 package tictactoeGame;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner;
         TicTacToe ticTacToe = new TicTacToe();
         System.out.println("THE GAME STARTED!!");
         ticTacToe.displayField();
-        boolean queue = true;
         while (true) {
-            if (queue) {
-                System.out.println("First player: ");
-                int[] moveData = new int[2];
-                moveData[0] = scanner.nextInt();
-                moveData[1] = scanner.nextInt();
-                ticTacToe.firstPlayerMoved(moveData);
-                ticTacToe.displayField();
-                queue = false;
-            } else {
-                System.out.println("Second player: ");
-                int[] moveData = new int[2];
-                moveData[0] = scanner.nextInt();
-                moveData[1] = scanner.nextInt();
-                ticTacToe.secondPlayerMoved(moveData);
-                ticTacToe.displayField();
-                queue = true;
+            ticTacToe.moveOf();
+            int[] moveData = new int[2];
+            try {
+                try {
+                    scanner = new Scanner(System.in);
+                    moveData[0] = scanner.nextInt();
+                    moveData[1] = scanner.nextInt();
+                    ticTacToe.playerMoved(moveData);
+                    ticTacToe.displayField();
+                } catch (InputMismatchException e) {
+                    System.out.println("ENTER 2 NUMBERS(e.g. coordinates)!");
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("EACH ENTERED NUMBER MUST BE >= 1 AND <=3");
             }
-
             if (ticTacToe.doesAnyoneWon()) {
-                System.out.println("FIRST PLAYER WON!!!");
-                ticTacToe.displayField();
                 return;
             } else if (ticTacToe.doesAnyoneWon()) {
-                System.out.println("SECOND PLAYER WON!!!");
-                ticTacToe.displayField();
                 return;
             }
         }
