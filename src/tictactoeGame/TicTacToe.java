@@ -101,7 +101,7 @@ public class TicTacToe {
         return moveOfAIData;
     }
 
-    public void playerMoved(int[] moveData) {
+    public void playerMoved(int[] moveData) throws Exception {
         if (FIRST_PLAYERS_MOVE) {
             this.markTheCell(moveData, FIRST_PLAYER);
             FIRST_PLAYERS_MOVE = false;
@@ -124,11 +124,29 @@ public class TicTacToe {
         }
     }
 
-    private void markTheCell(int[] moveData, int player) {
+    private void markTheCell(int[] moveData, int player) throws Exception {
         if (player == FIRST_PLAYER) {
-            this.mainField[moveData[0] - 1][moveData[1] - 1] = X_MARK;
+            if (isCellMatched(moveData)) {
+                throw new Exception();
+            } else {
+                this.mainField[moveData[0] - 1][moveData[1] - 1] = X_MARK;
+            }
+            //this.mainField[moveData[0] - 1][moveData[1] - 1] = X_MARK;
         } else {
-            this.mainField[moveData[0] - 1][moveData[1] - 1] = O_MARK;
+            if (isCellMatched(moveData)) {
+                throw new Exception();
+            } else {
+                this.mainField[moveData[0] - 1][moveData[1] - 1] = O_MARK;
+            }
+            //this.mainField[moveData[0] - 1][moveData[1] - 1] = O_MARK;
+        }
+    }
+
+    private boolean isCellMatched(int[] moveData) {
+        if (mainField[moveData[0] - 1][moveData[1] - 1].equals(X_MARK) || mainField[moveData[0] - 1][moveData[1] - 1].equals(O_MARK)) {
+            return true;
+        } else {
+            return false;
         }
     }
 

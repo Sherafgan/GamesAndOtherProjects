@@ -31,7 +31,7 @@ public class Main {
                         scanner = new Scanner(System.in);
                         moveData[0] = scanner.nextInt();
                         moveData[1] = scanner.nextInt();
-                        ticTacToe.playerMoved(moveData);
+                        //ticTacToe.playerMoved(moveData);
                         ticTacToe.displayField();
 
                     } catch (InputMismatchException e) {
@@ -55,20 +55,29 @@ public class Main {
             while (true) {
                 ticTacToe.moveOf();
                 int[] moveData = new int[2];
-                //If user enters wrong coordinates (e.g. numbers greater than 3 or less than 1), the "try" below will handle it
                 try {
-                    //If user enters letters or other symbols, the "try" below will handle it
+                    //If user enters wrong coordinates (e.g. numbers greater than 3 or less than 1), the "try" below will handle it
                     try {
-                        scanner = new Scanner(System.in);
-                        moveData[0] = scanner.nextInt();
-                        moveData[1] = scanner.nextInt();
-                        ticTacToe.playerMoved(moveData);
-                        ticTacToe.displayField();
-                    } catch (InputMismatchException e) {
-                        System.out.println("ENTER 2 NUMBERS(i.e. coordinates)!");
+                        //If user enters letters or other symbols, the "try" below will handle it
+                        try {
+                            scanner = new Scanner(System.in);
+                            moveData[0] = scanner.nextInt();
+                            moveData[1] = scanner.nextInt();
+                            ticTacToe.playerMoved(moveData);
+                        /*try {
+                            ticTacToe.playerMoved(moveData);
+                        } catch (IllegalAccessException e) {
+                            System.out.println("The cell is already matched!!!");
+                        }*/
+                            ticTacToe.displayField();
+                        } catch (InputMismatchException e) {
+                            System.out.println("ENTER 2 NUMBERS(i.e. coordinates)!");
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("EACH ENTERED NUMBER MUST BE >= 1 AND <=3");
                     }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("EACH ENTERED NUMBER MUST BE >= 1 AND <=3");
+                } catch (Exception e) {
+                    System.out.println("!!!!!!THE CELL YOU WANTED TO MATCH ALREADY MATCHED!!!!!!");
                 }
                 if (ticTacToe.doesAnyoneWon()) {
                     return;
