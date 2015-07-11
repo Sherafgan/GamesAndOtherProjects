@@ -131,14 +131,12 @@ public class TicTacToe {
             } else {
                 this.mainField[moveData[0] - 1][moveData[1] - 1] = X_MARK;
             }
-            //this.mainField[moveData[0] - 1][moveData[1] - 1] = X_MARK;
         } else {
             if (isCellMatched(moveData)) {
                 throw new Exception();
             } else {
                 this.mainField[moveData[0] - 1][moveData[1] - 1] = O_MARK;
             }
-            //this.mainField[moveData[0] - 1][moveData[1] - 1] = O_MARK;
         }
     }
 
